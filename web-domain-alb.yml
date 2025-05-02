@@ -1,0 +1,36 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: "nginx-ingress-2"
+  labels:
+    app.kubernetes.io/name: "nginx-ingress-2"
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+spec:
+  ingressClassName: alb
+  rules:
+    - host: www.rainhyeon.store
+      http:
+        paths:
+          - pathType: Prefix
+            path: /exam
+            backend:
+              service:
+                name: nginx-service1
+                port:
+                  number: 80
+          - pathType: Prefix
+            path: /ip
+            backend:
+              service:
+                name: nginx-service3
+                port:
+                  number: 80
+          - pathType: Prefix
+            path: /h
+            backend:
+              service:
+                name: nginx-service2
+                port:
+                  number: 80
